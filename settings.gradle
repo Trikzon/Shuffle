@@ -1,1 +1,10 @@
-rootProject.name = 'Shuffle-1.14.4-1.15.2-20w06a'
+pluginManagement {
+    repositories {
+        jcenter()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        gradlePluginPortal()
+    }
+}

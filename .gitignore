@@ -1,16 +1,29 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# gradle
 
-# Ignore Gradle build output directory
-build
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
+*.launch
 
 # idea
 
-.idea/*
+.idea/
 *.iml
 *.ipr
 *.iws
 
-!.idea/scopes/
-!.idea/runConfigurations/
-/.idea/
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# fabric
+
+run/

@@ -19,16 +19,9 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "io.github.trikzon.shuffle.fabric.Shuffle"
+      "com.trikzon.shuffle.Shuffle"
     ]
   },
   "mixins": [
-  ],
-
-  "depends": {
-    "fabricloader": ">=0.7.2",
-    "fabric": "*"
-  },
-  "suggests": {
-  }
+  ]
 }

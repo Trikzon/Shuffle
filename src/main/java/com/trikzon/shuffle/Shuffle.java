@@ -13,6 +13,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -48,10 +49,12 @@ public class Shuffle implements ClientModInitializer
             if (shuffleMode)
             {
                 player.sendMessage(new TranslatableText("message.shuffle.enable"), true);
+                player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_OFF, 0.4f, 1.0f);
             }
             else
             {
                 player.sendMessage(new TranslatableText("message.shuffle.disable"), true);
+                player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_ON, 0.4f, 0.75f);
             }
         }
         else if (!keyBinding.isPressed() && keyWasDown)

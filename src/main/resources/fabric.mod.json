@@ -13,7 +13,7 @@
     "sources": "https://github.com/Trikzon/Shuffle"
   },
 
-  "license": "LGPL-3.0-or-later",
+  "license": "MIT",
   "icon": "assets/shuffle/icon.png",
 
   "environment": "*",
@@ -21,6 +21,9 @@
     "client": [
       "com.trikzon.shuffle.Shuffle"
     ]
+  },
+  "depends": {
+    "fabric": "*"
   },
   "mixins": [
   ]

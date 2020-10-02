@@ -23,8 +23,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 
-public class Shuffle implements ClientModInitializer
-{
+public class Shuffle implements ClientModInitializer {
     public static final String MOD_ID = "shuffle";
 
     private static final KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -36,60 +35,47 @@ public class Shuffle implements ClientModInitializer
     private static boolean keyWasDown = false;
     private static int slotToSwitchTo = -1;
 
-    private void onClientTick(MinecraftClient client)
-    {
+    private void onClientTick(MinecraftClient client) {
         if (client.player == null) return;
         ClientPlayerEntity player = client.player;
 
-        if (keyBinding.isPressed() && !keyWasDown)
-        {
+        if (keyBinding.isPressed() && !keyWasDown) {
             keyWasDown = true;
 
             shuffleMode = !shuffleMode;
-            if (shuffleMode)
-            {
+            if (shuffleMode) {
                 player.sendMessage(new TranslatableText("message.shuffle.enable"), true);
                 player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_OFF, 0.5f, 1.0f);
-            }
-            else
-            {
+            } else {
                 player.sendMessage(new TranslatableText("message.shuffle.disable"), true);
                 player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_ON, 0.5f, 0.75f);
             }
         }
-        else if (!keyBinding.isPressed() && keyWasDown)
-        {
+        else if (!keyBinding.isPressed() && keyWasDown) {
             keyWasDown = false;
         }
 
-        if (slotToSwitchTo >= 0 && slotToSwitchTo <= 8)
-        {
+        if (slotToSwitchTo >= 0 && slotToSwitchTo <= 8) {
             player.inventory.selectedSlot = slotToSwitchTo;
             slotToSwitchTo = -1;
         }
     }
 
-    private ActionResult onBlockUse(PlayerEntity player, World world, Hand hand, BlockHitResult result)
-    {
-        if (!world.isClient || !shuffleMode || player.isSpectator())
-        {
+    private ActionResult onBlockUse(PlayerEntity player, World world, Hand hand, BlockHitResult result) {
+        if (!world.isClient || !shuffleMode || player.isSpectator()) {
             return ActionResult.PASS;
         }
 
         Item itemInHand = player.getStackInHand(hand).getItem();
-        if (Block.getBlockFromItem(itemInHand) != Blocks.AIR && itemInHand != Items.AIR)
-        {
+        if (Block.getBlockFromItem(itemInHand) != Blocks.AIR && itemInHand != Items.AIR) {
             ArrayList<Integer> slotsWithBlocks = new ArrayList<>();
-            for (int i = 0; i <= 8; i++)
-            {
+            for (int i = 0; i <= 8; i++) {
                 Item item = player.inventory.main.get(i).getItem();
-                if (Block.getBlockFromItem(item) != Blocks.AIR && item != Items.AIR)
-                {
+                if (Block.getBlockFromItem(item) != Blocks.AIR && item != Items.AIR) {
                     slotsWithBlocks.add(i);
                 }
             }
-            if (slotsWithBlocks.size() > 0)
-            {
+            if (slotsWithBlocks.size() > 0) {
                 int randomSlot = world.random.nextInt(slotsWithBlocks.size());
                 slotToSwitchTo = slotsWithBlocks.get(randomSlot);
             }
@@ -98,8 +84,7 @@ public class Shuffle implements ClientModInitializer
     }
 
     @Override
-    public void onInitializeClient()
-    {
+    public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(this::onClientTick);
         UseBlockCallback.EVENT.register(this::onBlockUse);
     }

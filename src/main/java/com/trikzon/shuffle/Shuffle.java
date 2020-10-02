@@ -1,8 +1,8 @@
 package com.trikzon.shuffle;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -27,7 +27,7 @@ public class Shuffle implements ClientModInitializer
 {
     public static final String MOD_ID = "shuffle";
 
-    private static KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    private static final KeyBinding keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key." + MOD_ID + ".shuffle",
             InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R,
             "key.category." + MOD_ID
@@ -49,12 +49,12 @@ public class Shuffle implements ClientModInitializer
             if (shuffleMode)
             {
                 player.sendMessage(new TranslatableText("message.shuffle.enable"), true);
-                player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_OFF, 0.4f, 1.0f);
+                player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_OFF, 0.5f, 1.0f);
             }
             else
             {
                 player.sendMessage(new TranslatableText("message.shuffle.disable"), true);
-                player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_ON, 0.4f, 0.75f);
+                player.playSound(SoundEvents.BLOCK_TRIPWIRE_CLICK_ON, 0.5f, 0.75f);
             }
         }
         else if (!keyBinding.isPressed() && keyWasDown)
@@ -100,7 +100,7 @@ public class Shuffle implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        ClientTickCallback.EVENT.register(this::onClientTick);
+        ClientTickEvents.END_CLIENT_TICK.register(this::onClientTick);
         UseBlockCallback.EVENT.register(this::onBlockUse);
     }
 }

@@ -1,0 +1,17 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+license="MIT"
+issueTrackerURL="http://github.com/Trikzon/shuffle/issues"
+
+[[mods]]
+modId="shuffle"
+version="${file.jarVersion}"
+displayName="Shuffle"
+# updateJSONURL=""
+displayURL="https://www.curseforge.com/minecraft/mc-mods/shuffle"
+# logoFile=""
+# credits=""
+authors="Trikzon"
+description='''
+Place random blocks from your hotbar with ease!
+'''
